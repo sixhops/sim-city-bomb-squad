@@ -2,6 +2,7 @@ body {
   text-align: center;
   background-size: cover;
   background-attachment: fixed;
+  background-image: url("img/simcity.jpg");
 }
 
 main {
@@ -20,14 +21,8 @@ p {
   font-size: 1.5em;
 }
 
-.unexploded {
-  background-image: url("img/simcity.jpg");
-}
 .exploded {
   background-image: url("img/explosion.jpg")
-}
-.red {
-  color: red;
 }
 .green {
   color: green;
