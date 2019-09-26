@@ -1,3 +1,35 @@
-body{
+body {
   text-align: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
+
+main {
+  background: black;
+  width: 200px;
+  margin: 4em auto;
+  padding: 1em;
+}
+
+button {
+  width: 90%;
+}
+
+p {
+  color: red;
+  font-size: 1.5em;
+}
+
+.unexploded {
+  background-image: url("img/simcity.jpg");
+}
+.exploded {
+  background-image: url("img/explosion.jpg")
+}
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}
+
