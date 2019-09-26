@@ -24,9 +24,11 @@ var resetButton = document.querySelector('button');
 // TODO: add audio elements
 
 // Event Listeners
+resetButton.addEventListener('click', reset);
+
 wireBox.addEventListener('click', function(e) {
   var color = e.target.alt;
-  if (!wireState[color] && !gameOver) {
+  if (!wireState[color] && !gameOver && color) {
     // If wire isn't cut and game isn't over...
     e.target.src = `img/cut-${color}-wire.png`;
     // TODO: play cut audio
@@ -37,11 +39,13 @@ wireBox.addEventListener('click', function(e) {
       // Correct wire cut
       console.log(`${color} at index ${wireIndex} was correct`);
       wiresToCut.splice(wireIndex, 1);
-      // TODO: Check for a win here
+      if (checkForWin()) {
+        endGame(true);
+      }
     } else {
       // Incorrect wire cut
       console.log(`${color} at index ${wireIndex} was wrong`);
-      // TODO: Kickoff the death delay
+      delay = setTimeout(endGame, 750, false);
     }
   }
 });
@@ -59,7 +63,7 @@ function init() {
   console.log(wiresToCut);
   resetButton.disabled = true;
   // TODO: play the siren
-  // TODO: start the countdown
+  countdown = setInterval(updateClock, 1000);
 }
 
 function reset() {
@@ -81,3 +85,37 @@ function reset() {
   // TODO: Stop playing audio
   init();
 }
+
+function checkForWin() {
+  return wiresToCut.length ? false : true;
+}
+
+function endGame(win) {
+  clearTimeout(delay);
+  clearInterval(countdown);
+  gameOver = true;
+  resetButton.disabled = false;
+
+  if (win) {
+    // we won!
+    console.log("You saved the city!");
+    timer.classList.add('green');
+    // TODO: yay!
+  } else {
+    // we lose!
+    console.log('BOOM!!!');
+    // TODO: play explosion audio
+    document.body.classList.add('exploded');
+  }
+
+}
+
+function updateClock() {
+  remainingTime--;
+  if (remainingTime <= 0) {
+    endGame(false);
+  }
+  timer.textContent = `0:00:${remainingTime}`;
+}
+
+init();
